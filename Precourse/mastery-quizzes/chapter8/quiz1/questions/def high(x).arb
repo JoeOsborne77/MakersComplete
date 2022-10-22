@@ -1,0 +1,16 @@
+def high(x)
+    alph = {
+      "a" => 1, 	"g" => 7, 	"m" => 13, 	"s" => 19, 	"y" => 25, 
+      "b" => 2, 	"h" => 8, 	"n" => 14, 	"t" => 20, 	"z" => 26, 
+      "c" => 3, 	"i" => 9, 	"o" => 15, 	"u" => 21, 	
+      "d" => 4, 	"j" => 10, 	"p" => 16, 	"v" => 22, 	
+      "e" => 5, 	"k" => 11, 	"q" => 17, 	"w" => 23, 	
+      "f" => 6, 	"l" => 12, 	"r" => 18, 	"x" => 24 	 
+       }
+  
+  a = x.split(" ")  
+  z = a.map { |o| o.length }
+  y = x.chars.map { |n| alph[n] }
+  b = y.slice_before { |e| e.nil? }.map(&:compact).map { |oit| oit.sum }
+  
+  end

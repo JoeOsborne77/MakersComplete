@@ -1,0 +1,21 @@
+# {{PROBLEM}} Method Design Recipe
+
+## 1. Describe the Problem
+
+- User wants to check whether a text includes the string 'TODO'
+
+## 2. Design the Method Signature
+
+`text_checker(text)` - method name and parameter
+text.match(/TODO/) 
+
+## 3. Create Examples as Tests
+
+"Hello my name is Joe" => false
+"Hello my name is Joe and I have an extensive TODO list" => true
+
+
+## 4. Implement the Behaviour
+
+_After each test you write, follow the test-driving process of red, green, refactor to implement the behaviour._
+

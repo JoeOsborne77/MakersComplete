@@ -1,0 +1,163 @@
+{{PROBLEM}} Multi-Class Planned Design Recipe
+1. Describe the Problem
+As a user
+So that I can record my experiences
+I want to keep a regular diary
+
+As a user
+So that I can reflect on my experiences
+I want to read my past diary entries
+
+As a user
+So that I can reflect on my experiences in my busy day
+I want to select diary entries to read based on how much time I have and my reading speed
+
+As a user
+So that I can keep track of my tasks
+I want to keep a todo list along with my diary
+
+As a user
+So that I can keep track of my contacts
+I want to see a list of all of the mobile phone numbers in all my diary entries
+
+
+2. Design the Class System
+Consider diagramming out the classes and their relationships. Take care to focus on the details you see as important, not everything. The diagram below uses asciiflow.com but you could also use excalidraw.com, draw.io, or miro.com
+
+                ┌───────────┐
+                │Class Diary│    no arguments - has three arrays
+                └───────────┘
+
+          ┌─────────────────────────┐
+          │ Initialize Method(entry)│
+          │  takes entry from user  │
+          └─────────────────────────┘
+
+             ┌──────────────────┐
+             │  Read Method     │
+             │  returns entries │
+             └──────────────────┘
+
+┌─────────────────────────────────────────────┐
+│ Read_Specific Method                        │
+│ Returns diary entry                         │
+│ Based on (wpm, time)                        │
+│ wpm = user reading speed / words per minute │
+│ time = time user has to read                │
+└─────────────────────────────────────────────┘
+
+   ┌───────────────────────────────────────────┐
+   │                                           │
+   │   Marks an item as Todo and records list  │
+   │   Also returns todo list when called      │
+   └───────────────────────────────────────────┘
+
+   class Diary
+    def initialize 
+      @entries = []
+      @todo = []
+      @contacts = []
+    end
+
+    def add_new_entry(entry) #instance of diary_entry
+      if entry.match(/todo/)
+        @todo << entry.gsub!(/\b - todo\b/, "")
+      elsif entry.match(/entry/)
+        @entries << entry.gsub!((/\b - entry\b/, ""))
+      else entry.match(/phon number/)
+        @contacts << entry.gsub!((/\b - phone number\b/, ""))
+      end
+    end
+
+    def read_entries
+      @entries
+    end
+
+    def read_todos
+      @todo
+    end
+
+    def see_contact_directory
+      @contacts
+    end
+
+    def read_specific(wpm, minutes)
+      total_words = wpm * minutes
+      #tbc
+    end
+  end
+
+  class DiaryEntry
+    def initialize(entry)
+      @entry = entry
+    end
+
+    def constructs
+      @entry
+    end
+
+    def mark_as_todo
+      @entry.concat(" - todo")
+    end
+
+    def mark_as_entry 
+      @entry.concat(" - entry")
+    end
+
+    def mark_as_contact
+      @entry.concat(" - contact")
+    end
+  end
+
+
+
+
+3. Create Examples as Integration Tests
+Create examples of the classes being used together in different situations and combinations that reflect the ways in which the system will be used.
+
+#DIARY ENTRY SPEC
+
+it "allows user to #mark_as_todo" do
+  diary_entry = DiaryEntry.new("clean car")
+  expect(diary_entry.mark_as_todo).to eq "clean car - todo"
+end
+
+it "allows user to #mark_as_entry" do
+  diary_entry = DiaryEntry.new("I went swimming today and it was blissful")
+  expect(diary_entry.mark_as_entry).to eq "I went swimming today and it was blissful - entry"
+end
+
+it "allows user to #mark_as_contact" do
+  diary_entry = DiaryEntry.new("Joe - 07497836638")
+  expect(diary_entry.mark_as_contact).to eq "Joe - 07497836638 - contact"
+end
+
+#INTERGRATION SPEC
+it "pushes entry to @todo list and #todos method returns said list" do
+  diary_entry = DiaryEntry.new("clean car")
+  diary = Diary.new
+  diary.add_new_entry(diary_entry.mark_as_todo)
+  expect(diary.read_todos).to eq ["clean car"]
+end
+
+it "pushes entry to @entries list and #read_entries method returns said list" do
+  diary_entry = DiaryEntry.new("I went swimming today and it was frightfully cold.")
+  diary = Diary.new
+  diary.add_new_entry(diary_entry.mark_as_todo)
+  expect(diary.read_entries).to eq ["I went swimming today and it was frightfully cold."]
+end
+
+it "pushes entry to @contacts list list and #read_entries method returns said list" do
+  diary_entry = DiaryEntry.new("Joe - 07479874668")
+  diary = Diary.new
+  diary.add_new_entry(diary_entry.mark_as_contact)
+  expect(diary.see_contact_directory).to eq ["Joe - 07479874668"]
+end
+
+
+
+
+
+
+5. Implement the Behaviour
+After each test you write, follow the test-driving process of red, green, refactor to implement the behaviour.

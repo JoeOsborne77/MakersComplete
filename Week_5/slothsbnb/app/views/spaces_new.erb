@@ -1,0 +1,75 @@
+<style>
+.form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-color: black;
+	border-width: 2px;
+	border-style: solid;
+	gap: 50px;
+	padding-left: 100px;
+	padding-right: 100px;
+	padding-bottom: 20px;
+	width: 275px;
+}
+
+.button {
+	transition-duration: 0.4s;
+	background-color: #F5EEF8;
+	color: #34495E;
+	padding: 25px;
+}
+
+.button:hover {
+	background-color: #AF7AC5;
+	color: #34495E;
+}
+</style>
+
+<center>
+<h1>Create New Space!</h1>
+
+
+<div align='left'class="form">
+<form action="/spaces/new" method="POST">
+
+<br><label>Space name:</label></br>
+<br><input type="text" name="space_name" placeholder="Space name"></br>
+
+<br><label>Description:</label></br>
+<br><textarea name="description" rows="8" cols="50"></textarea></br>
+
+<br><label>Price per night:</label></br>
+<br><input type="number" step=".01" name="price_per_night" placeholder="Price per night"></br>
+
+<br>
+  Availability
+</br>
+<br>
+  <label>from:</label>
+	<input type="date" name="available_from" value=<%=get_todays_date%> min=<%=get_todays_date%> max="2027-10-14">
+  <label>to:</label>
+	<input type="date" name="available_to" value=<%=get_todays_date%> min=<%=get_todays_date%> max="2027-10-14">
+</br>
+<br>
+<br></br>
+	<input class='button' type="submit" value="List this space">
+</br>
+
+<% if @space != nil %>
+	<% if @space.save %>
+	<p>Success! <%= @space.space_name %> has been created.</p>
+	<% else %>
+	<h4>OOPS! Something has gone horribly wrong.</h4>
+	<ul>
+		<% @space.errors.full_messages.each do |error| %>
+		<li><%= error %></li>
+		<% end %>
+	</ul>
+	<% end %>
+<% end %>
+
+</form>
+</div>
+</div>
+</center>

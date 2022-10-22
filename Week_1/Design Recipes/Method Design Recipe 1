@@ -1,0 +1,33 @@
+# {{PROBLEM}} Method Design Recipe
+
+## 1. Describe the Problem
+- User wants to manage their time more efficiently
+- User wants to be given an estimate of reading time for given amount of text 
+- Calculation should be based 200 words per minute
+
+## 2. Design the Method Signature
+
+# calculate_reading_time is the name of the method
+# words is the amount of words the user wants to read
+
+calculate_reading_time(num_of_words)
+return num_of_words / 200 = minutes
+
+## 3. Create Examples as Tests
+
+_Make a list of examples of what the method will take and return._
+
+calculate_reading_time(800) => 4
+calculate_reading_time(1000) => 5
+calculate_reading_time(200) => 1
+calculate_reading_time(20000) => 100
+calculate_reading_time("") throws an error
+calculate_reading_time(nil)) throws an error
+calculate_reading_time("Hi!") throws an error
+
+
+_Encode each example as a test. You can add to the above list as you go._
+
+## 4. Implement the Behaviour
+
+_After each test you write, follow the test-driving process of red, green, refactor to implement the behaviour._
