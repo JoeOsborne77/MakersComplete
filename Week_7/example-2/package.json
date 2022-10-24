@@ -1,5 +1,5 @@
 {
-  "name": "notes-app",
+  "name": "example-1",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,7 +11,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jest": "^29.2.1",
+    "esbuild": "^0.14.2",
+    "jest": "^27.4.3"
+  },
+  "devDependencies": {
     "jest-environment-jsdom": "^29.2.1"
   }
 }
