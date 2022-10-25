@@ -19,8 +19,8 @@ describe('Game', () => {
     game.addFrame(2,3);
     game.addFrame(2,3);
     game.addFrame(2,3);
-    expect(game.frames.length).toEqual(11);
-    expect(game.addFrame(2,3)).toEqual()});
+    expect(game.frames.length).toEqual(10);
+    expect(game.addFrame(2,3)).toEqual("No more throws")});
 
   it("records correct perfect game score", () => {
     const game = new Game
@@ -33,26 +33,25 @@ describe('Game', () => {
     game.addFrame(10,0);
     game.addFrame(10,0);
     game.addFrame(10,0);
-    game.addFrame(10,0);
-    game.addFrame(10,10);
-    expect(game.frames.length).toEqual(11);
+    game.addFrame(10,10,10);
+    expect(game.frames.length).toEqual(10);
     expect(game.score()).toEqual(300);
   });
-
-  it("records correct game score", () => {
+  
+  it("records correct score", () => {
     const game = new Game
     game.addFrame(10,0);
     game.addFrame(10,0);
     game.addFrame(10,0);
     game.addFrame(10,0);
     game.addFrame(10,0);
-    game.addFrame(10,0);
-    game.addFrame(10,0);
-    game.addFrame(10,0);
     game.addFrame(0,0);
-    game.addFrame(0,0);
-    expect(game.frames.length).toEqual(11);
-    expect(game.score()).toEqual(210);
+    game.addFrame(10,0);
+    game.addFrame(10,0);
+    game.addFrame(10,0);
+    game.addFrame(10,10,10);
+    expect(game.frames.length).toEqual(10);
+    expect(game.score()).toEqual(240);
   });
 
   it("records gutter game", () => {
@@ -67,8 +66,40 @@ describe('Game', () => {
     game.addFrame(0,0);
     game.addFrame(0,0);
     game.addFrame(0,0);
-    expect(game.frames.length).toEqual(11);
+    expect(game.frames.length).toEqual(10);
     expect(game.score()).toEqual(0);
+  });
+
+  it("records correct score", () => {
+    const game = new Game
+    game.addFrame(0,0);
+    game.addFrame(0,0);
+    game.addFrame(0,0);
+    game.addFrame(7,2);
+    game.addFrame(0,0);
+    game.addFrame(4,3);
+    game.addFrame(10,0);
+    game.addFrame(2,5);
+    game.addFrame(0,0);
+    game.addFrame(0,0);
+    expect(game.frames.length).toEqual(10);
+    expect(game.score()).toEqual(40);
+  });
+
+  it("records mix of strikes and spares", () => {
+    const game = new Game
+    game.addFrame(0,0);
+    game.addFrame(9,1);
+    game.addFrame(0,0);
+    game.addFrame(7,2);
+    game.addFrame(10,0);
+    game.addFrame(4,3);
+    game.addFrame(10,0);
+    game.addFrame(2,5);
+    game.addFrame(0,0);
+    game.addFrame(10,9,1);
+    expect(game.frames.length).toEqual(10);
+    expect(game.score()).toEqual(87);
   });
 
   it("records gutter game", () => {
@@ -83,7 +114,56 @@ describe('Game', () => {
     game.addFrame(0,0);
     game.addFrame(0,0);
     game.addFrame(0,0);
-    expect(game.frames.length).toEqual(11);
+    expect(game.frames.length).toEqual(10);
     expect(game.score()).toEqual(9);
+  });
+
+  it("records spares", () => {
+    const game = new Game
+    game.addFrame(0,0);
+    game.addFrame(0,0);
+    game.addFrame(0,0);
+    game.addFrame(7,3);
+    game.addFrame(4,0);
+    game.addFrame(0,2);
+    game.addFrame(0,0);
+    game.addFrame(4,6);
+    game.addFrame(2,0);
+    game.addFrame(0,0);
+    expect(game.frames.length).toEqual(10);
+    expect(game.score()).toEqual(34);
+  });
+
+
+  it("records spares", () => {
+    const game = new Game
+    game.addFrame(9,1);
+    game.addFrame(9,1);
+    game.addFrame(9,1);
+    game.addFrame(9,1);
+    game.addFrame(9,1);
+    game.addFrame(9,1);
+    game.addFrame(9,1);
+    game.addFrame(9,1);
+    game.addFrame(9,1);
+    game.addFrame(9,1,9);
+    expect(game.frames.length).toEqual(10);
+    expect(game.score()).toEqual(190);
+  });
+
+  it("records spares", () => {
+    const game = new Game
+    game.addFrame(9,1);
+    game.addFrame(4,0);
+    game.addFrame(0,0);
+    game.addFrame(0,0);
+    game.addFrame(0,0);
+    game.addFrame(0,0);
+    game.addFrame(0,0);
+    game.addFrame(0,0);
+    game.addFrame(0,0);
+    game.addFrame(0,0,0);
+    expect(game.frames.length).toEqual(10);
+    expect(game.score()).toEqual(18);
   });
 });

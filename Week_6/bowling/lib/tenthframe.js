@@ -1,7 +1,9 @@
-class Frame {
-  constructor(roll1, roll2){
+class TenthFrame {
+  constructor(roll1, roll2, roll3){
     this.roll1 = roll1;
     this.roll2 = roll2;
+    this.roll3 = roll3;
+
     }
 
   isStrike(){
@@ -20,9 +22,13 @@ class Frame {
     return this.roll2;
   }
 
+  rollThree(){
+    return this.roll3;
+  }
+
   totalScore(){
-    return this.roll1 + this.roll2;
+    return this.roll1 + this.roll2 + this.roll3;
   }
 }
 
-module.exports = Frame;
+module.exports = TenthFrame;
