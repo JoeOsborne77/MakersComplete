@@ -1,8 +1,6 @@
 const notesModel = require('./notesModel.js')
-
+const NotesView = require('./NotesView.js')
 const model = new notesModel;
+const view = new NotesView(model);
 
-model.addNote("gym")
-console.log(model.getNotes());
-
-console.log('The notes app is running')
+console.log(view.displayNotes());
