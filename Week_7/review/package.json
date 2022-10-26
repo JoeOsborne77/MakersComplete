@@ -1,0 +1,15 @@
+{
+  "name": "review",
+  "version": "1.0.0",
+  "description": "- I work for a school reports company  - We help teachers find out how their students did on tests  - String with comma separated values with test results  - Need program to create a report from the string -",
+  "main": "schoolReport.test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^29.2.2"
+  }
+}
