@@ -13,47 +13,38 @@ const prompt = require("prompt-sync")();
     for(let i = 0; i < times; i++){
       if (this.game.frames.length < 9) {
       let roll1 = this.userRoll1();
-      if (roll1 < 0 || roll1 > 10) {this.incorrectScore()};
+        if (roll1 < 0 || roll1 > 10) {this.incorrectScore()};
+        if (roll1 < 0 || roll1 > 10) {roll1 = 0};
 
-      let roll2 = this.userRoll2();
-      if (roll2 < 0 || roll2 > 10) {this.incorrectScore()};
-
-      if (roll1 < 0 || roll1 > 10) {roll1 = 0};
-      if (roll2 < 0 || roll2 > 10) {roll2 = 0}; 
-        
-      this.game.addFrame(roll1, roll2);
+      if (roll1 === 10) {
+        let roll2 = 0
+        this.game.addFrame(roll1, roll2)
+      } else {
+        let roll2 = this.userRoll2();
+        if (roll2 < 0 || roll2 > 10) {this.incorrectScore()};
+        if (roll2 < 0 || roll2 > 10) {roll2 = 0}; 
+        this.game.addFrame(roll1, roll2)}; 
+      };
 
       if (this.game.frames.length == 9) this.playFrame10();
     }};
-  };
 
   playFrame10() {
     let roll1 = this.userRoll1();
     if (roll1 < 0 || roll1 > 10) {this.incorrectScore()};
+    let roll2 = this.userRoll2();
+    if (roll2 < 0 || roll2 > 10) {this.incorrectScore()};
+    if (roll1 < 0 || roll1 > 10) {roll1 = 0};
+    if (roll2 < 0 || roll2 > 10) {roll2 = 0}; 
 
-    if (roll1 === 10) {
-      let roll2 = this.userRoll2();
-      if (roll2 < 0 || roll2 > 10) {this.incorrectScore()};
-
+    if (roll1 + roll2 < 10) {this.game.addFrame(roll1, roll2)}; 
+    if (roll1 + roll2 >= 10) {
       let roll3 = this.userRoll3();
       if (roll3 < 0 || roll3 > 10) {this.incorrectScore()};
-      
-      if (roll1 < 0 || roll1 > 10) {roll1 = 0};
-      if (roll2 < 0 || roll2 > 10) {roll2 = 0}; 
-      this.game.addFrame(roll1, roll2, roll3);
-    } else if (roll1 != 10) {
-        let roll2 = this.userRoll2()
-        if (roll2 < 0 || roll2 > 10) {this.incorrectScore()};
-
-        if (roll1 < 0 || roll1 > 10) {roll1 = 0};
-        if (roll2 < 0 || roll2 > 10) {roll2 = 0}; 
-      
-        if (roll1 + roll2 === 10) {
-        let roll3 = this.userRoll3();
-        if (roll3 < 0 || roll3 > 10) {this.incorrectScore()};
-       
-        this.game.addFrame(roll1, roll2, roll3)}
-      } else (this.game.addFrame(roll1, roll2, roll3));
+      if (roll3 < 0 || roll3 > 10) {roll3 = 0}; 
+      this.game.addFrame(roll1, roll2, roll3)
+    };
+ 
   };
 
   score(){

@@ -37,7 +37,55 @@ describe('Game', () => {
     expect(game.frames.length).toEqual(10);
     expect(game.score()).toEqual(300);
   });
+
+  it("records correct game score", () => {
+    const game = new Game
+    game.addFrame(2,3);
+    game.addFrame(2,3);
+    game.addFrame(2,3);
+    game.addFrame(0,3);
+    game.addFrame(5,5);
+    game.addFrame(4,6);
+    game.addFrame(10,0);
+    game.addFrame(4,3);
+    game.addFrame(2,1);
+    game.addFrame(10,10,4);
+    expect(game.frames.length).toEqual(10);
+    expect(game.score()).toEqual(103);
+  });
   
+  it("records correct game score", () => {
+    const game = new Game
+    game.addFrame(3,3);
+    game.addFrame(3,3);
+    game.addFrame(3,3);
+    game.addFrame(3,3);
+    game.addFrame(5,0);
+    game.addFrame(5,5);
+    game.addFrame(5,5);
+    game.addFrame(10,0);
+    game.addFrame(10,0);
+    game.addFrame(4,3,0);
+    expect(game.frames.length).toEqual(10);
+    expect(game.score()).toEqual(112);
+  });
+
+  it("records correct game score", () => {
+    const game = new Game
+    game.addFrame(3,3);
+    game.addFrame(3,3);
+    game.addFrame(3,3);
+    game.addFrame(3,3);
+    game.addFrame(5,5);
+    game.addFrame(5,5);
+    game.addFrame(5,5);
+    game.addFrame(10,0);
+    game.addFrame(10,0);
+    game.addFrame(4,3,0);
+    expect(game.frames.length).toEqual(10);
+    expect(game.score()).toEqual(122);
+  });
+
   it("records correct score", () => {
     const game = new Game
     game.addFrame(10,0);
@@ -100,6 +148,38 @@ describe('Game', () => {
     game.addFrame(10,9,1);
     expect(game.frames.length).toEqual(10);
     expect(game.score()).toEqual(87);
+  });
+
+  it("records mix of strikes and spares", () => {
+    const game = new Game
+    game.addFrame(4,6);
+    game.addFrame(4,6);
+    game.addFrame(10,0);
+    game.addFrame(10,0);
+    game.addFrame(10,0);
+    game.addFrame(4,6);
+    game.addFrame(5,3);
+    game.addFrame(4,6);
+    game.addFrame(10,0);
+    game.addFrame(3,2,0);
+    expect(game.frames.length).toEqual(10);
+    expect(game.score()).toEqual(171);
+  });
+
+  it("records mix of strikes and spares", () => {
+    const game = new Game
+    game.addFrame(4,6);
+    game.addFrame(4,6);
+    game.addFrame(4,6);
+    game.addFrame(4,0);
+    game.addFrame(10,0);
+    game.addFrame(4,6);
+    game.addFrame(5,5);
+    game.addFrame(4,6);
+    game.addFrame(3,0);
+    game.addFrame(10,10,0);
+    expect(game.frames.length).toEqual(10);
+    expect(game.score()).toEqual(131);
   });
 
   it("records gutter game", () => {
