@@ -1,37 +1,66 @@
 class NotesView {
-  constructor(model) {
+  constructor(model, api) {
     this.model = model;
-    this.mainContainerEl = document.querySelector('#main-container');
+    this.api = api;
+    this.mainContainerEl = document.querySelector("#main-container");
 
-    document.querySelector('#add-note-button').addEventListener('click', () => {
-      const newNote = document.querySelector('#add-note-input').value;
+    document.querySelector("#add-note-button").addEventListener("click", () => {
+      const newNote = document.querySelector("#add-note-input").value;
       this.addNewNote(newNote);
     });
   }
 
+  displayNotesFromApi() {
+    this.api.loadNotes(
+      (repoData) => {
+        this.model.setNotes(repoData);
+        this.displayNotes();
+      },
+      () => {
+        this.displayError();
+      }
+    );
+  }
+
   addNewNote(newNote) {
-    this.model.addNote(newNote);
-    this.displayNotes();
+    this.api.createNote(
+      (newNote) => {
+        this.model.addNote(newNote);
+        this.displayNotes();
+      },
+      () => {
+        this.displayError();
+      }
+    );
   }
 
   displayNotes() {
-    document.querySelectorAll('note').forEach(element => {
+    document.querySelectorAll(".note").forEach((element) => {
       element.remove();
     });
 
-    document.getElementById('add-note-input').value = "";
+    document.getElementById("add-note-input").value = "";
 
-    const notes = this.model.getNotes()  
-    notes.forEach(note => {
-      const noteEl = document.createElement('div');
+    const notes = this.model.getNotes();
+    notes.forEach((note) => {
+      const noteEl = document.createElement("div");
       noteEl.textContent = note;
-      noteEl.className = 'note';
+      noteEl.className = "note";
       this.mainContainerEl.append(noteEl);
     });
-  };
-};
+  }
 
+  displayError() {
+    let errorMessage = document.createElement("div");
+    errorMessage.className = "error";
+    errorMessage.textContent = "Oops, something went wrong!";
+    this.mainContainerEl.append(errorMessage);
+  }
+}
 
+//On the notes app web page, open the developer console and use fetch to make a
+//call to http://localhost:3000/notes and console.log the result data. You can use the previous section's
+//fetch example (the one using Github's API) as a scaffolding for this new code.
 module.exports = NotesView;
 
 // have a constructor
@@ -45,5 +74,5 @@ module.exports = NotesView;
 // If, when running the test, you're getting an error such as document
 //  is not defined or Cannot read property 'append' of null — make sure you've setup your test
 //  like in the template.
-// If the number of elements returned by document.querySelectorAll is still zero after 
+// If the number of elements returned by document.querySelectorAll is still zero after
 // implementing the new method — did you make sure to set the HTML class note on the new elements?

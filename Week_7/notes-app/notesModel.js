@@ -1,8 +1,8 @@
-class notesModel {
+class NotesModel {
   constructor() {
     this.notes = [];
   }
-  
+
   getNotes() {
     return this.notes;
   }
@@ -11,9 +11,13 @@ class notesModel {
     this.notes.push(note);
   }
 
+  setNotes(notes) {
+    notes.forEach((note) => this.addNote(note));
+  }
+
   reset() {
-    this.notes = []
+    this.notes = [];
   }
 }
 
-module.exports = notesModel;
+module.exports = NotesModel;
