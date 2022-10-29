@@ -30,12 +30,26 @@ class NotesClient {
       });
   }
 
-  deleteNotes() {
+  resetNotes() {
     fetch("http://localhost:3000/notes", {
       method: "DELETE",
     }).then((response) => {
       return response.json();
     });
+  }
+
+  emojify(text, callback) {
+    fetch("https://makers-emojify.herokuapp.com/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text: text }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        callback(data.emojified_text);
+      });
   }
 }
 

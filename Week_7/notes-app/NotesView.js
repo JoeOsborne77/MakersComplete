@@ -8,6 +8,11 @@ class NotesView {
       const newNote = document.querySelector("#add-note-input").value;
       this.addNewNote(newNote);
     });
+    this.clearNotesBtn = document.querySelector("#clear-note-button");
+    this.clearNotesBtn.addEventListener("click", () => {
+      this.clearNotes();
+    });
+    this.resetNotes();
   }
 
   displayNotesFromApi() {
@@ -23,31 +28,36 @@ class NotesView {
   }
 
   addNewNote(newNote) {
-    this.api.createNote(
-      (newNote) => {
-        this.model.addNote(newNote);
-        this.displayNotes();
-      },
-      () => {
-        this.displayError();
-      }
-    );
+    this.api.createNote(newNote);
+    this.model.addNote(newNote);
+    this.displayNotes();
+    // this.api.createNote(
+    //   (newNote) => {
+    //     this.model.addNote(newNote);
+    //     this.displayNotes();
+    //   },
+    //   () => {
+    //     this.displayError();
+    //   }
+    // );
   }
 
   displayNotes() {
-    document.querySelectorAll(".note").forEach((element) => {
-      element.remove();
-    });
-
-    document.getElementById("add-note-input").value = "";
-
+    this.clearNotes();
     const notes = this.model.getNotes();
-    notes.forEach((note) => {
-      const noteEl = document.createElement("div");
-      noteEl.textContent = note;
-      noteEl.className = "note";
-      this.mainContainerEl.append(noteEl);
+    notes.forEach((text) => {
+      this.api.emojify(text, (callback) => {
+        const noteEl = document.createElement("div");
+        noteEl.textContent = callback;
+        noteEl.className = "note";
+        this.mainContainerEl.append(noteEl);
+      });
     });
+  }
+
+  resetNotes() {
+    this.api.resetNotes();
+    this.displayNotesFromApi();
   }
 
   displayError() {
@@ -55,6 +65,13 @@ class NotesView {
     errorMessage.className = "error";
     errorMessage.textContent = "Oops, something went wrong!";
     this.mainContainerEl.append(errorMessage);
+  }
+
+  clearNotes() {
+    const displayedNotes = document.querySelectorAll("div.note");
+    displayedNotes.forEach((element) => {
+      element.remove();
+    });
   }
 }
 
