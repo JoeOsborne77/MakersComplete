@@ -11,25 +11,24 @@ class ArticlesView {
     this.clearFeedBtn.addEventListener("click", () => {
       this.clearFeed();
     });
-    // this.searchInput.addEventListener("input", (e) => {
-    //   this.articlesFromModel.forEach((article) => {
-    //     const searchInput = e.target.value.toLowerCase();
-    //     const isVisible = article.webTitle.toLowerCase().includes(searchInput);
-    //     if (!isVisible) {
-    //       // not sure what to do here
-    //     }
-    //     console.log(searchInput);
-    //     console.log(article.webTitle);
-    //     console.log(isVisible);
-    //   });
-    // });
+    // New search function
+    this.searchInput.addEventListener("input", (e) => {
+      const searchInput = e.target.value.toLowerCase();
+      // Create a filtered copy of articlesFromModel
+      const filteredArticles = this.articlesFromModel.filter((article) => {
+        return article.webTitle.toLowerCase().includes(searchInput);
+      });
+      this.clearFeed();
+      // Display filtered list.
+      this.displayArticles(filteredArticles);
+    });
   }
 
   displayArticlesFromApi() {
     this.api.loadArticles(
       (repoData) => {
         this.model.addArticle(repoData.response.results);
-        this.displayArticles();
+        this.displayArticles(this.articlesFromModel);
       },
       () => {
         this.displayError();
@@ -37,8 +36,8 @@ class ArticlesView {
     );
   }
 
-  displayArticles() {
-    this.articlesFromModel.forEach((article) => {
+  displayArticles(articles) {
+    articles.forEach((article) => {
       this.addImage(article);
       this.addHeadline(article);
     });
