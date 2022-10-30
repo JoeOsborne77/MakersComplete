@@ -10,6 +10,30 @@ class GuardianApi {
         callback(data);
       });
   }
+
+  // searchArticles() {
+  //   this.apiArr = [];
+  //   const articleCardTemplate = document.querySelector(
+  //     "[data-article-template]"
+  //   );
+
+  //   const articleCardContainer = document.querySelector(
+  //     "[data-articles-container]"
+  //   );
+  //   fetch(this.apiURL)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       const dataResult = data.response.results;
+  //       this.apiArr.push(dataResult);
+  //       this.apiArr.forEach((article) => {
+  //         const card = articleCardTemplate.content.cloneNode(true);
+  //         const header = card.querySelector("[data-header]");
+  //         console.log(article);
+  //         header.textContent = article.webTitle;
+  //         articleCardContainer.append(card);
+  //       });
+  //     });
+  // }
 }
 
 module.exports = GuardianApi;

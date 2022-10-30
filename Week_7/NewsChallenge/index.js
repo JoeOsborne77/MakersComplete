@@ -8,3 +8,4 @@ const model = new ArticlesModel();
 const view = new ArticlesView(model, client);
 
 view.displayArticlesFromApi();
+// client.searchArticles();

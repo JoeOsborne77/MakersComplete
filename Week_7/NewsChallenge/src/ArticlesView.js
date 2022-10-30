@@ -2,30 +2,28 @@ class ArticlesView {
   constructor(model, api) {
     this.model = model;
     this.api = api;
+    this.articlesFromModel = this.model.getArticles();
     this.newsFeed = document.querySelector("#news-feed");
     this.clearFeedBtn = document.querySelector("#clear-feed-button");
-    this.searchBtn = document.querySelector("#search-button");
     this.refreshBtn = document.querySelector("#refresh-button");
-    this.keyword = document.querySelector("#search-input").value;
-    this.allHeadlines = [document.querySelectorAll("h1")]; // get all the divs in an array
-    this.searchBtn.addEventListener("click", () => {
-      this.searchNews();
-    });
+    this.searchInput = document.querySelector("#search-input");
+    this.allHeadlines = [document.querySelectorAll("h1")];
     this.clearFeedBtn.addEventListener("click", () => {
       this.clearFeed();
     });
+    // this.searchInput.addEventListener("input", (e) => {
+    //   this.articlesFromModel.forEach((article) => {
+    //     const searchInput = e.target.value.toLowerCase();
+    //     const isVisible = article.webTitle.toLowerCase().includes(searchInput);
+    //     if (!isVisible) {
+    //       // not sure what to do here
+    //     }
+    //     console.log(searchInput);
+    //     console.log(article.webTitle);
+    //     console.log(isVisible);
+    //   });
+    // });
   }
-
-  searchNews() {
-    this.displayArticlesFromApi();
-    this.clearFeed;
-    const articlesFromModel = this.model.getArticles();
-    articlesFromModel.forEach((article) => {
-      this.model.searchArticles(article);
-      this.addImage(article);
-      this.addHeadline(article);
-    });
-  } // this is the best way - interact with model class
 
   displayArticlesFromApi() {
     this.api.loadArticles(
@@ -40,8 +38,7 @@ class ArticlesView {
   }
 
   displayArticles() {
-    const articlesFromModel = this.model.getArticles();
-    articlesFromModel.forEach((article) => {
+    this.articlesFromModel.forEach((article) => {
       this.addImage(article);
       this.addHeadline(article);
     });
