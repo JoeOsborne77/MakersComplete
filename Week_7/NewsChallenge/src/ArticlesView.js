@@ -3,12 +3,16 @@ class ArticlesView {
     this.model = model;
     this.api = api;
     this.newsFeed = document.querySelector("#news-feed");
+    this.clearFeedBtn = document.querySelector("#clear-feed-button");
     this.searchBtn = document.querySelector("#search-button");
+    this.refreshBtn = document.querySelector("#refresh-button");
     this.keyword = document.querySelector("#search-input").value;
     this.allHeadlines = [document.querySelectorAll("h1")]; // get all the divs in an array
-    console.log(this.keyword);
     this.searchBtn.addEventListener("click", () => {
       this.searchNews();
+    });
+    this.clearFeedBtn.addEventListener("click", () => {
+      this.clearFeed();
     });
   }
 
@@ -17,6 +21,7 @@ class ArticlesView {
     this.clearFeed;
     const articlesFromModel = this.model.getArticles();
     articlesFromModel.forEach((article) => {
+      this.model.searchArticles(article);
       this.addImage(article);
       this.addHeadline(article);
     });
@@ -46,6 +51,9 @@ class ArticlesView {
     const h1 = document.createElement("h1");
     h1.className = "news-title";
     h1.innerText = article.webTitle;
+    h1.onclick = () => {
+      window.location.href = article.webUrl;
+    };
     this.newsFeed.append(h1);
   }
 
@@ -54,6 +62,9 @@ class ArticlesView {
     img.className = "news-image";
     img.setAttribute("id", article.id);
     img.src = article.fields.thumbnail;
+    img.onclick = () => {
+      window.location.href = article.webUrl;
+    };
     this.newsFeed.append(img);
   }
 

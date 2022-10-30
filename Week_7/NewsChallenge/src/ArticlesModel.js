@@ -8,6 +8,10 @@ class ArticlesModel {
     return this.articles;
   }
 
+  getSearchedArticles() {
+    return this.searchedArticles;
+  }
+
   addArticle(article) {
     article.forEach((a) => {
       this.articles.push(a);
