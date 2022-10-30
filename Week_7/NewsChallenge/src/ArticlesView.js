@@ -11,15 +11,12 @@ class ArticlesView {
     this.clearFeedBtn.addEventListener("click", () => {
       this.clearFeed();
     });
-    // New search function
     this.searchInput.addEventListener("input", (e) => {
       const searchInput = e.target.value.toLowerCase();
-      // Create a filtered copy of articlesFromModel
       const filteredArticles = this.articlesFromModel.filter((article) => {
         return article.webTitle.toLowerCase().includes(searchInput);
       });
       this.clearFeed();
-      // Display filtered list.
       this.displayArticles(filteredArticles);
     });
   }
